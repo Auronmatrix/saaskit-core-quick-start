@@ -17,7 +17,6 @@ namespace saaskit.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Message"] = $"Current tenant is {tenant.Name}";
             return View();
         }
 
