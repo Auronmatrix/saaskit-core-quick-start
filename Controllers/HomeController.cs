@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using saaskit.Models;
+using SaasKit.Multitenancy;
 
 namespace saaskit.Controllers
 {
@@ -10,10 +12,11 @@ namespace saaskit.Controllers
     {
         private readonly AppTenant tenant;
 
-        public HomeController(AppTenant tenant)
+        public HomeController(ITenant<AppTenant> tenant)
         {
-            this.tenant = tenant;            
+            this.tenant = tenant?.Value;
         }
+
 
         public IActionResult Index()
         {

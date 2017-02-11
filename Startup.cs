@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using saaskit.Models;
 
 namespace saaskit
 {
@@ -27,10 +24,12 @@ namespace saaskit
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMultitenancy<AppTenant, AppTenantResolver>();
-
+            
+            services.AddMultitenancy<AppTenant, CachingAppTenantResolver>();
             // Add framework services.
             services.AddMvc();
+            services.AddOptions();
+            services.Configure<MultitenancyOptions>(Configuration.GetSection("Multitenancy"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
